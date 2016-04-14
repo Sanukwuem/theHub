@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+  <div class="header" style="width:1880px;height:200px;border:4px solid #000; margin: 0 auto;">
+    <h1>EventsA</h1>
+  </div>
+
+
+<div class="main">
+<div class="label">
+  Schedules
+</div>
+
+<div class="schedules">
+
+
+    <% @schedules.each do |schedule| %>
+
+        <!-- <div class= "card">
+          <h2><%#= schedule.title this would be used for seeding%></h2>
+        </div> -->
+        <div class="schedule">
+          <p class="content" ><%= schedule.content %></p>
+        </div>
+
+       <div class="scheduleinfo">
+          <%= link_to 'Schedule info', schedule_path(schedule) %>
+      </div>
+          <!--<p class="time"><%= schedule.created_at %></p> -->
+
+    <% end %>
+
+    <p></p>
+    <%= link_to 'New Schedule', "schedules/new" %>
+
+    <% #@schedules.each do |schedule| %>
+  <!--<div class="schedule">
+    <h1 class="schedule-title"><%#= link_to schedule.title, schedule %></h1>
+    <p class="schedule-content"><%#= schedule.content %></p>
+  </div> -->
+<%# end %>
+
+</div>
+</div>
+</div>
+</body>
+</html>

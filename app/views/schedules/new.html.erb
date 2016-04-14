@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<style>
+
+div.header{
+  margin: 0 auto;
+}
+
+h1 {
+  text-align: center;
+
+  font-size: 95px;
+}
+
+
+
+
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+li {
+float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+background-color: #111;
+}
+
+div.back{
+
+}
+
+div.createschedule{
+background-color: white;
+}
+
+div.schedules{
+
+}
+
+tr.schedules1{
+  background-color: white;
+  font-size: 30px;
+}
+
+div.message{
+  font-size: 30px;
+  text-align: center;
+}
+
+</style>
+
+
+</head>
+<body>
+<div class="container">
+  <div class="header" style="width:1515px;height:120px;">
+    <h1>Schedule</h1>
+  </div>
+
+
+
+<div class="createschedule">
+Enter New Date: <br />
+  <%= form_for @schedule do |f| %>
+        Name: <%= f.text_field :name %> <br />
+
+
+      <%= f.submit "Create Date" %>
+   <% end %>
+ </div>
+
+   <hr />
+
+   <div class ="schedules">
+   List of all dates: <br />
+    <% if !@schedules.blank? %>
+    <table border=1>
+      <tr>
+        <th> Name </th>
+      </tr>
+    <% for item in @schedules %>
+     <tr class ="schedules1">
+       <td> <%= link_to item.name,  :controller => :events, :action => :new, :id => item.id %>  <img src="https://cdn2.iconfinder.com/data/icons/school-set-2/512/14-512.png" alt="Schedule" style="width:28px;height:40px; float: right"></td>
+       <%#= link_to "Edit", "/schedules/new" %>
+    </tr>
+  <% end %>
+</table>
+
+<% end %>
+</div>
+
+  <div class ="message">
+    <p> Welcome to the scheduling app! Use the text box above to enter a date that you would like to schedule events for. After you are finished creating a date, click on it to begin creating events!
+      <br> Ex: 4/19/2016 or April 19, 2016
+      </p>
+  </div>
+</div>
+</div>
+</body>
+</html>

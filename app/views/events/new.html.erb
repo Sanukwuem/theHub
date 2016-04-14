@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<style>
+
+div.header{
+  margin: 0 auto;
+}
+
+h1 {
+  text-align: center;
+
+  font-size: 95px;
+}
+
+
+
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+li {
+float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+background-color: #111;
+}
+
+div.back{
+
+}
+
+div.createevent{
+background-color: white;
+}
+
+div.events{
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="header" style="width:1515px;height:120px;" >
+      <h1>Events</h1>
+    </div>
+
+<div class ="back">
+Date: <%= @schedule.name %> <%= link_to "back", "/schedules/new" %>
+</div>
+
+<div class ="createevent">
+<hr>
+<%= form_for @event, :url => { :action => :create, :id => @schedule.id} do |f| %>
+  Event: <%= f.text_field :event %> <br>
+  <%= f.submit "Create Event" %>
+<% end %>
+<hr />
+</div>
+
+
+<div class ="events">
+    Events <hr>
+  <% for item in @schedule.events %>
+  <td> <%= item.event %>  </td> <hr>
+<% end %>
+
+</div>
+</body>
+</html>
