@@ -51,7 +51,7 @@ background-color: white;
 }
 
 div.schedules{
-
+   font-size: 24px;
 }
 
 tr.schedules1{
@@ -75,11 +75,10 @@ div.message{
   </div>
 
 
-
+<!-- used to create a date that is displayed in a table -->
 <div class="createschedule">
-Enter New Date: <br />
   <%= form_for @schedule do |f| %>
-        Name: <%= f.text_field :name %> <br />
+      Enter New Date: <%= f.text_field :name %> <br />
 
 
       <%= f.submit "Create Date" %>
@@ -88,16 +87,17 @@ Enter New Date: <br />
 
    <hr />
 
+<!-- gathering the dates from the schedule to be placed in the table -->
    <div class ="schedules">
    List of all dates: <br />
     <% if !@schedules.blank? %>
     <table border=1>
       <tr>
-        <th> Name </th>
+        <th> Date </th>
       </tr>
     <% for item in @schedules %>
      <tr class ="schedules1">
-       <td> <%= link_to item.name,  :controller => :events, :action => :new, :id => item.id %>  <img src="https://cdn2.iconfinder.com/data/icons/school-set-2/512/14-512.png" alt="Schedule" style="width:28px;height:40px; float: right"></td>
+       <td> <%= link_to item.name,  :controller => :events, :action => :new, :id => item.id %>  </td>
        <%#= link_to "Edit", "/schedules/new" %>
     </tr>
   <% end %>
@@ -106,6 +106,7 @@ Enter New Date: <br />
 <% end %>
 </div>
 
+<!-- message showing users how to use the application -->
   <div class ="message">
     <p> Welcome to the scheduling app! Use the text box above to enter a date that you would like to schedule events for. After you are finished creating a date, click on it to begin creating events!
       <br> Ex: 4/19/2016 or April 19, 2016

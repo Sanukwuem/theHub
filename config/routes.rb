@@ -1,12 +1,16 @@
 Rails.application.routes.draw do
 
+get '' => 'schedules#index'
+
+get '/maps' => 'maps#index'
+
  get '/thehub' => 'schedules#show'
 
   resource :schedules
   resource :events
 
-  get '/schedules/:id/edit' => 'schedules#edit', as: :edit_schedule
-  patch '/schedules/:id' => 'schedules#update'
+  #get '/schedules/:id/edit' => 'schedules#edit', as: :edit_schedule
+  #patch '/schedules/:id' => 'schedules#update'
   #get '/schedules' => 'schedules#index'
   #get 'schedules/new' => 'schedules#new'
   #post 'schedules' => 'schedules#create'

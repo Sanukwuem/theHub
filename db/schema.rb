@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(version: 20160225090131) do
     t.text     "content"
     t.string   "event"
     t.integer  "schedule_id"
+    t.string   "priority"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

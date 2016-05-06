@@ -53,6 +53,15 @@ div.events{
 
 }
 
+div.message{
+  font-size: 30px;
+  text-align: center;
+}
+
+hr {
+  clear:both;
+}
+
 </style>
 
 </head>
@@ -64,26 +73,107 @@ div.events{
       <h1>Events</h1>
     </div>
 
-<div class ="back">
+<!-- back button -->
+<div class = "back">
 Date: <%= @schedule.name %> <%= link_to "back", "/schedules/new" %>
 </div>
 
+<!-- create event form -->
 <div class ="createevent">
 <hr>
 <%= form_for @event, :url => { :action => :create, :id => @schedule.id} do |f| %>
   Event: <%= f.text_field :event %> <br>
+  Priority: <%= f.number_field :priority, min:0, max:10 %> <br>
+
   <%= f.submit "Create Event" %>
 <% end %>
-<hr />
+</hr>
 </div>
 
 
 <div class ="events">
-    Events <hr>
+    Events <hr></hr>
+</div>
+
+  <!---------------------- Algorithm ------------------------>
+  <!-- This algorithm takes the events created in the event text_field
+       and the priority specified in the number field. First the event
+       and priority are both displayed on the page and depending on
+       how how the user sets the priority of an event determines the size
+       of the alert text under the event. Basically, the user is alerted
+       to the events that they feel is most important
+
+  <!-- For every item created on the events page do this.. -->
   <% for item in @schedule.events %>
-  <td> <%= item.event %>  </td> <hr>
+
+  <!-- if the event value and priority value does not have anything in it
+       do not continue -->
+  <% if ((item.event.nil? && item.priority.nil?) == false) %>
+
+  <!-- get the event typed in and the priority specified -->
+  <div>
+       <%= item.event %>
+       <%= item.priority %>
+  </div>
+
+  <!-- changing the priority value from a string to an integer -->
+  <% s = item.priority %>
+  <% i = s.to_i %>
+
+
+<!-- if the priority is low the alert message appears smaller,
+     while higher priorities cause the alert message to increase in
+     size -->
+  <% if (i <= 2 && item.event.nil? == true) %>
+<div style= "font-size: 10px;">
+        distant goal
+</div>
+        <hr > <!-- putting a break line in between events, priorities, and messages. -->
+
+
+
+  <% elsif (i <= 4 && item.event.nil? == true) %>
+<div style= "font-size: 15px;">
+        not that important
+  </div>
+        <hr >
+
+
+  <% elsif (i <= 6 && item.event.nil? == true) %>
+<div style= "font-size: 20px;" >
+              finish before day ends
+</div>
+              <hr >
+
+
+  <% elsif (i <= 8 && item.event.nil? == true) %>
+<div style= "font-size: 25px;" >
+                I should get to this
+</div>
+                <hr >
+
+
+  <% elsif (i <= 10 && item.event.nil? == true) %>
+<div style="font-size: 50px;">
+
+                Complete this now!!
+</div>
+                <hr >
+
+
+<% end %>
 <% end %>
 
+
+<% end %>
+
+
+<!-- message showing users how to use application -->
+<div class ="message">
+  <p> Use the textbox above to create events for the day! The higher you set
+    the priority, the more likely are to remember an event.
+    </p>
 </div>
+
 </body>
 </html>

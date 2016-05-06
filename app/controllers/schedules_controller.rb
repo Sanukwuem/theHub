@@ -3,6 +3,7 @@ class SchedulesController < ApplicationController
     @schedules = Schedule.all
   end
 
+#picks up all new schedules created
   def new
     @schedule = Schedule.new
     @schedules = Schedule.all
@@ -12,6 +13,7 @@ class SchedulesController < ApplicationController
   #  @schedule = Schedule.find(params[:id]) #schedule/id page
  #end
 
+#create method for the schedule
   def create
     @schedule = Schedule.new(comment_params)
     if @schedule.save

@@ -1,4 +1,5 @@
-class CreateNotes < ActiveRecord::Migration
+class CreateEvents < ActiveRecord::Migration
+  #every event has text a schedule id and a priority
   def change
     create_table :events do |t|
       t.text :content
@@ -9,6 +10,7 @@ class CreateNotes < ActiveRecord::Migration
 
       t.integer :schedule_id
 
+      t.string :priority
 
       #used for seeding
       #t.string :name
