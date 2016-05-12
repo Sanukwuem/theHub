@@ -99,11 +99,13 @@ Date: <%= @schedule.name %> <%= link_to "back", "/schedules/new" %>
   <!-- This algorithm takes the events created in the event text_field
        and the priority specified in the number field. First the event
        and priority are both displayed on the page and depending on
-       how how the user sets the priority of an event determines the size
-       of the alert text under the event. Basically, the user is alerted
-       to the events that they feel is most important
+       how how the user sets the priority of an event determines the order
+       in which the event will show up on the screen using a mergesort.
 
   <!-- For every item created on the events page do this.. -->
+
+  <% events = [] %>
+
   <% for item in @schedule.events %>
 
   <!-- if the event value and priority value does not have anything in it
@@ -116,19 +118,28 @@ Date: <%= @schedule.name %> <%= link_to "back", "/schedules/new" %>
        <%= item.priority %>
   </div>
 
+
+
   <!-- changing the priority value from a string to an integer -->
   <% s = item.priority %>
   <% i = s.to_i %>
 
+  <!-- takes out irrelevant value from program (0) -->
+  <% if (i > 0) %>
+  <% events.push(i) %>
+  <% end %>
+
+<!-- Old Algorithm -->
 
 <!-- if the priority is low the alert message appears smaller,
      while higher priorities cause the alert message to increase in
      size -->
+<!--
   <% if (i <= 2 && item.event.nil? == true) %>
 <div style= "font-size: 10px;">
         distant goal
 </div>
-        <hr > <!-- putting a break line in between events, priorities, and messages. -->
+        <hr > <!-- putting a break line in between events, priorities, and messages.
 
 
 
@@ -162,10 +173,69 @@ Date: <%= @schedule.name %> <%= link_to "back", "/schedules/new" %>
 
 
 <% end %>
+-->
+
+<% end %>
 <% end %>
 
 
-<% end %>
+ <% def mergesort(ary)
+ #array less than 1 is already sorted
+    if ary.count <= 1
+        return ary
+    end
+
+
+
+    # divide and conquer strategy
+    #dividing
+    middle = ary.count / 2
+    div_a = mergesort ary.slice(0, middle)
+    div_b = mergesort ary.slice(middle, ary.count - middle)
+
+    #conquering
+    ary = []
+    offsetA = 0
+    offsetB = 0
+    while offsetA < div_a.count && offsetB < div_b.count
+        a = div_a[offsetA]
+        b = div_b[offsetB]
+
+        #the priority that is smaller gets pushed into the array
+        if a <= b
+            ary << a
+            offsetA += 1
+        else
+            ary << b
+            offsetB += 1
+        end
+    end
+
+    # Making sure there is at least one element left in div_a or div_b
+    # but not both at the same time
+    while offsetA < div_a.count
+        ary << div_a[offsetA]
+        offsetA += 1
+    end
+
+    while offsetB < div_b.count
+        ary << div_b[offsetB]
+        offsetB += 1
+    end
+
+    return ary
+end %>
+
+
+<!-- showing the events in the order they were entered
+     and then proceeding to show them in order of priority -->
+<div> <%= events.compact %> </div>
+<div> <%= (mergesort events).reverse! %> </div>
+
+<!-- -------------End of algorithm ------------------ -->
+
+
+
 
 
 <!-- message showing users how to use application -->
